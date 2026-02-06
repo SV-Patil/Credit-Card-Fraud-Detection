@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Credit Card Fraud Detection</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Credit Card Fraud Detection</h1>
+    <p class="lead">Fill transaction details below and click <strong>Predict</strong>. This front-end sends a JSON POST to a FastAPI</p>
+
+    <div class="grid">
+      <div class="card">
+        <form id="predict-form">
+          <div class="row">
+            <div style="flex:1">
+              <label for="amount">Transaction Amount (₹)</label>
+              <input id="amount" name="amount" type="number" step="1" min="0" value="255" required />
+            </div>
+            <div style="width:180px">
+              <label for="time">Date and Time</label>
+              <input id="time" name="time" type="datetime-local" value="" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1">
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" value="Moravian Falls" required/>
+            </div>
+            <div style="width:180px">
+              <label for="category">Category</label>
+              <input id="category" name="category" type="text" value="misc_net" required/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1">
+              <label for="city_pop">City Population</label>
+              <input id="city_pop" name="city_pop" type="number" value="1452455" required/>
+            </div>
+            <div style="width:180px">
+              <label for="age">Age</label>
+              <input id="age" name="age" type="number" value="32" required/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="job">Job</label>
+              <input id="job" name="job" type="text" value="Psychologist, counselling" required/>
+            </div>
+            <div>
+              <label for="gender">Gender</label>
+              <p>
+              <input type="radio" id="option1" name="myOption" value="female">
+              <label for="option1">Female</label>
+
+              <input type="radio" id="option2" name="myOption" value="male">
+              <label for="option2">Male</label>
+              </p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:14px">
+            <button class="btn" id="predict-btn" type="submit">Predict</button>
+            <button class="btn" type="button" id="clear-btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)">Reset</button>
+            <div id="spinner" style="display:none;margin-left:8px">⏳ Predicting...</div>
+          </div>
+
+        </form>
+      </div>
+
+      <div>
+        <div class="card" id="result-card">
+          <div id="result-area">
+            <div class="meta">Model result will appear here.</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="meta"><strong>Backend / Integration</strong></div>
+          <p class="small" style="margin-top:8px">This frontend expects a POST endpoint at <code>/api/predict</code> (same origin). The request body is JSON, e.g.:</p>
+          <pre class="small" style="white-space:pre-wrap;background:transparent;padding:8px;border-radius:6px;border:1px dashed rgba(255,255,255,0.03);">{
+  "amount": 1500.0,
+  "time": "2025-10-12T14:05:00",
+  "city": "Pune"
+  "category": "electronics",
+  "city population": 50000,
+  "age": 29,
+  "Job": "teacher",
+  "Gender": "Female"
+}</pre>
+          <p class="small">Expected response (JSON):</p>
+          <pre class="small" style="white-space:pre-wrap;background:transparent;padding:8px;border-radius:6px;border:1px dashed rgba(255,255,255,0.03);">{
+  "prediction": "fraud",
+  "probability": 0.87
+}</pre>
+          <p class="help">If your model uses different feature names/types, change <code>buildRequestPayload()</code> in the JS below to match.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/index.js"></script> 
+</body>
+</html>
